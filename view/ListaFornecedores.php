@@ -9,7 +9,7 @@ if ($_SESSION['login_session'] == null || $_SESSION['login_session'] == false) {
 <?php
 include_once '../controller/DAOFornecedores.php';
 include_once '../controller/conecta.php';
-$sql = 'SELECT idFornecedor, nome, cnpj, tipo FROM fornecedor';
+$sql = 'SELECT idFornecedor, nome, cnpj, inscEstadual, contato, endereco FROM fornecedor';
 $stmt = FabricaConexao::Conexao()->prepare($sql);
 $stmt->execute();
 $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -77,7 +77,9 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">CNPJ</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Inscrição Estadual</th>
+                    <th scope="col">Contato</th>
+                    <th scope="col">Endereço</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,7 +89,9 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
                     echo "<td>" . $linha->idFornecedor . "</td>";
                     echo "<td>" . $linha->nome . "</td>";
                     echo "<td>" . $linha->cnpj . "</td>";
-                    echo "<td>" . $linha->tipo . "</td>";
+                    echo "<td>" . $linha->inscEstadual. "</td>";
+                    echo "<td>" . $linha->contato . "</td>";
+                    echo "<td>" . $linha->numDependentes . "</td>";
                     echo "</tr>";
                 }
                 ?>

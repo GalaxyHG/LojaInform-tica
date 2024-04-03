@@ -9,7 +9,7 @@ if ($_SESSION['login_session'] == null || $_SESSION['login_session'] == false) {
 <?php
 include_once '../controller/DAOColaboradores.php';
 include_once '../controller/conecta.php';
-$sql = 'SELECT idColaborador, nome, cargo, salario FROM colaborador';
+$sql = 'SELECT idColaborador, nome, cpf, telefone, email, numDependentes FROM colaborador';
 $stmt = FabricaConexao::Conexao()->prepare($sql);
 $stmt->execute();
 $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -76,8 +76,10 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Cargo</th>
-                    <th scope="col">Salário</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Número de Dependentes</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,8 +88,10 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
                     echo "<tr>";
                     echo "<td>" . $linha->idColaborador . "</td>";
                     echo "<td>" . $linha->nome . "</td>";
-                    echo "<td>" . $linha->cargo . "</td>";
-                    echo "<td>" . $linha->salario . "</td>";
+                    echo "<td>" . $linha->cpf . "</td>";
+                    echo "<td>" . $linha->telefone . "</td>";
+                    echo "<td>" . $linha->email . "</td>";
+                    echo "<td>" . $linha->numDependentes . "</td>";
                     echo "</tr>";
                 }
                 ?>

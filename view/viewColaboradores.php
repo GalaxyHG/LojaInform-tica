@@ -7,15 +7,17 @@ include_once "../model/colaborador.php";
 include_once "../model/extendsColaboradores.php";
 include_once '../controller/DAOColaboradores.php';
 
-$produtoDAO = new DAOColaboradores();
+$colabDAO = new DAOColaboradores();
 $colab = new colaboradoresa();
 
 if (isset($_POST['cadastrar'])) 
 {
     $colab->setNome($_POST['nome']);
-    $colab->setCargo($_POST['cargo']);
-    $colab->setSalario($_POST['salario']);
-    $produtoDAO->InsertColaborador($colab);
+    $colab->setCPF($_POST['cpf']);
+    $colab->setTelefone($_POST['telefone']);
+    $colab->setEmail($_POST['email']);
+    $colab->setNumDependentes($_POST['numDepen']);
+    $colabDAO->InsertColaborador($colab);
     header("Location:../view/ListaColaboradores.php");
 }
 
@@ -89,15 +91,23 @@ if (isset($_POST['cadastrar']))
                         <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">Cargo:</label>
-                        <input type="text" name="cargo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">CPF:</label>
+                        <input type="text" name="cpf" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="container d-flex justify-content-around flex-row">
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">Salário:</label>
-                        <input type="text" name="salario" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">Telefone:</label>
+                        <input type="text" name="telefone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>                    
+                    <div class="mb-3 p-2">
+                        <label for="exampleInputEmail1" class="form-label">E-mail:</label>
+                        <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>     
+                    <div class="mb-3 p-2">
+                        <label for="exampleInputEmail1" class="form-label">Número de Dependentes:</label>
+                        <input type="text" name="numDepen" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>                                   
                 </div>
                 <div class="mb-3 p-2">
                         <div class="container d-flex justify-content-around flex-row">

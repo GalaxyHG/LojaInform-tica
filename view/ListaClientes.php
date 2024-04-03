@@ -1,21 +1,23 @@
 <?php
-header('Content-Type: text/html; charset = UTF-8');
-session_start();
-if ($_SESSION['login_session'] == null || $_SESSION['login_session'] == false) {
-    header("Location: ../view/login.php");
-}
-?>
+    header('Content-Type: text/html; charset=utf-8');
+    session_start();
+    if ($_SESSION['login_session'] == null || $_SESSION['login_session'] == false)
+    {
+        header("Location: ../view/login.php");
+    }
 
-<?php
-include_once '../controller/DAOClientes.php';
-include_once '../controller/conecta.php';
-$sql = 'SELECT idCliente, nome, cpf, tel, email, endereco FROM clientes';
-$stmt = FabricaConexao::Conexao()->prepare($sql);
-$stmt->execute();
-$linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
+    include_once '../controller/DAOClientes.php';
+    include_once '../controller/conecta.php';
+
+    $sql = 'SELECT idCliente, nome, cpf, tel, email, endereco FROM clientes';
+    $stmt = FabricaConexao::Conexao()->prepare($sql);
+    $stmt->execute();
+    $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +26,7 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <title>Lista Clientes</title>
 </head>
+
 <body>
     <div class="container-fluid mb-5 h-50">
         <div class="row d-flex align-items-center justify-content-center h-50 ">
@@ -92,12 +95,16 @@ $linhas = $stmt->fetchAll(PDO::FETCH_CLASS);
                     echo "<td>" . $linha->tel . "</td>";
                     echo "<td>" . $linha->email . "</td>";
                     echo "<td>" . $linha->endereco . "</td>";
+                    echo '<td><a class="btn btn-sm btn-primary"href="AlteraClientes.php?acao=alterar&id=$linha->idCliente">Editar</a></td>';
+                    echo '<td><a class="btn btn-sm btn-danger"href="AlteraClientes.php?acao=deletar&id=$linha->idCliente">Deletar</a></td>';
                     echo "</tr>";
                 }
                 ?>
             </tbody>
         </table>
     </div>
+    <?php
+    ?>
 </body>
 
 </html>

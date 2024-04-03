@@ -3,22 +3,32 @@
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 
-include_once "../model/fornecedor.php";
-include_once "../model/extendsFornecedores.php";
-include_once '../controller/DAOFornecedores.php';
+include_once "../model/cliente.php";
+include_once "../model/extendsClientes.php";
+include_once '../controller/DAOClientes.php';
+include_once "../controller/conecta.php";
 
-$produtoDAO = new DAOFornecedores();
-$fornec = new fornecedoresa();
+$clienteDAO = new DAOClientes();
+$cliente = new clientes();
 
 if (isset($_POST['cadastrar'])) 
 {
-    $fornec->setNome($_POST['nome']);
-    $fornec->setCNPJ($_POST['cnpj']);
-    $fornec->setInsc($_POST['insc']);
-    $fornec->setContato($_POST['contato']);
-    $fornec->setEndereco($_POST['endereco']);
-    $produtoDAO->InsertFornecedor($fornec);
-    header("Location:../view/ListaFornecedores.php");
+	$cliente->setIdCliente( $id = $_POST['idCliente']);
+	$cliente->setNome( $nome = $_POST['nome']);
+	$cliente->setCpf($cpf = $_POST['cpf']);
+	$cliente->setTel ($telefone = $_POST['telefone']);
+	$cliente->setEmail ($email = $_POST['email']);
+	$cliente->setEndereco ($endereco = $_POST['endereco']);
+	$clienteDAO->Update($cliente);
+	header("Location:../view/ListaClientes.php");
+}
+
+$ids = (int)$_GET['id'];
+$linhas = $clienteDAO->find($ids);
+
+if (isset($_GET['acao']) && $_GET['acao'] == 'deletar' ) 
+{ 
+	$clienteDAO->Delete($ids);
 }
 
 ?>
@@ -32,7 +42,7 @@ if (isset($_POST['cadastrar']))
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <title>Cadastre um Fornecedor</title>
+    <title>Cadastre um cliente</title>
 </head>
 
 <body>
@@ -46,7 +56,7 @@ if (isset($_POST['cadastrar']))
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"></a></li>
                             <li class="nav-item"><a class="nav-link" href="ViewClientes.php">Cadastro Clientes</a></li>
                             <li class="nav-item"><a class="nav-link" href="#"></a></li>
                             <li class="nav-item"><a class="nav-link" href="ListaClientes.php">Lista Clientes</a></li>
@@ -75,7 +85,6 @@ if (isset($_POST['cadastrar']))
                                 }
                                 ?>
                             </label>
-
                         </form>
                     </div>
                 </div>
@@ -85,37 +94,40 @@ if (isset($_POST['cadastrar']))
     <main>
         <div class="container h-50 d-flex justify-content-center">
             <form method="post" action="">
-                <div class="container d-flex justify-content-around flex-column">
+                <div class="container d-flex justify-content-around flex-row">
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">Nome do Fornecedor:</label>
+                        <label for="exampleInputEmail1" class="form-label">Nome:</label>
                         <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">CNPJ:</label>
-                        <input type="text" name="cnpj" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">CPF:</label>
+                        <input type="text" name="cpf" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="11">
                     </div>
                 </div>
                 <div class="container d-flex justify-content-around flex-row">
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">Inscrição Estadual:</label>
-                        <input type="text" name="insc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>                    
+                        <label for="exampleInputEmail1" class="form-label">Telefone:</label>
+                        <input type="text" name="tel" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
                     <div class="mb-3 p-2">
-                        <label for="exampleInputEmail1" class="form-label">Contato:</label>
-                        <input type="text" name="contato" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>     
+                        <label for="exampleInputEmail1" class="form-label">E-mail:</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
                     <div class="mb-3 p-2">
                         <label for="exampleInputEmail1" class="form-label">Endereço:</label>
                         <input type="text" name="endereco" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>     
-                </div>
-                <div class="mb-3 p-2">
-                        <div class="container d-flex justify-content-around flex-row">
-                            <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
-                        </div>
                     </div>
+                </div>
+                <div class="container d-flex justify-content-around flex-row">
+                    <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
+                </div>
             </form>
+
+            <?php
+                echo $_POST['idCliente'];
+            ?>
         </div>
     </main>
 </body>
+
 </html>

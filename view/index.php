@@ -62,24 +62,23 @@ header('Content-Type: text/html; charset=utf-8');
                         <div class="card-body">
 
                             <!--Inicio do form-->
-                            <form class="row d-flex align-items-bottom justify-content-center" action="../controller/loginusuario.php" method="POST">
+                            <form class="row d-flex align-items-bottom justify-content-center" action="../controller/valida.php" method="POST">
                                 <!--Inicio da imagem-->
                                 <div class="col-md-10 ">
-                                    <img src="../assets/loja.png" alt="logo" width="300" height="300" style="vertical-align:middle" class="img-fluid">
+                                    <img src="../assets/forro.webp" alt="logo" width="300" height="300" style="vertical-align:middle" class="img-fluid">
                                 </div>
                                 <!--Fim da imagem-->
                                 <div class="col-auto">
-                                    <label for="#">Login-Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="digite seu email"><br>
-                                    <label for="#">Senha</label>
-                                    <input type="password" class="form-control" name="senha" placeholder="digite sua senha"><br>
+                                    <label for="#">Nome</label>
+                                    <input type="text" class="form-control" name="login" placeholder="digite seu nome"><br>
+                                    <label for="#">CPF</label>
+                                    <input type="password" class="form-control" name="senha" placeholder="digite sua senha" maxlength="11"><br>
                                     <button type="submit" class="btn btn-primary mb-3">Logar</button>
                                 </div>
                         </div>
                         <!--Fim do card-body-->
                         </form>
                         <!--Final do form-->
-                        Não possui cadastro? <a href="viewCadastro.php">Clique aqui!</a>
                     </div>
                     <!--Fim do card-body-->
                 </div>

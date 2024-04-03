@@ -92,7 +92,7 @@ if (isset($_POST['cadastrar'])) {
                     </div>
                     <div class="mb-3 p-2">
                         <label for="exampleInputEmail1" class="form-label">CPF:</label>
-                        <input type="text" name="cpf" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" name="cpf" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="11">
                     </div>
                 </div>
                 <div class="container d-flex justify-content-around flex-row">
